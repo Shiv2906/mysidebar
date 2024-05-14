@@ -1,23 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import SideMenu from "./components/SideMenu";
+
+import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
+
+const Dashboard = () => {
+  return <h1>Dashboard</h1>;
+};
+const About = () => {
+  return <h1>About</h1>;
+};
+const Basic_Info = () => {
+  return <h1>Basic Information</h1>;
+};
+const Resume = () => {
+  return <h1>Resume</h1>;
+};
+const Contact = () => {
+  return <h1>Contact</h1>;
+};
 
 function App() {
+
+  const [inactive , setInactive] = useState(false);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <SideMenu onCollapse={(inactive)=>{
+          console.log(inactive);
+          setInactive(inactive)
+        }} />
+
+        <div className={`container ${inactive ? "inactive" : ''}`}>
+          <Routes>
+            <Route path="/" element={  <Dashboard />}>
+            
+            </Route>
+            <Route path="/about" element={<About />}>
+              
+            </Route>
+            <Route path="/about/basic_info" element={ <Basic_Info />}>
+             
+            </Route>
+            <Route path="/about/Resume" element={<Resume />}>
+              
+            </Route>
+            <Route path="/contact" element={ <Contact />}> 
+            </Route>
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }
